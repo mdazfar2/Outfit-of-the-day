@@ -50,9 +50,6 @@ export default function Navbar() {
           className="group flex items-center gap-2.5 font-serif text-xl sm:text-2xl tracking-[0.22em] font-medium text-white transition-opacity hover:opacity-80"
         >
           <span>OOTD</span>
-          <span className="text-[10px] tracking-[0.25em] font-sans uppercase px-2 py-0.5 rounded-full bg-accent-gold/20 text-accent-gold border border-accent-gold/30">
-            Men
-          </span>
         </a>
 
         {/* Desktop Links */}

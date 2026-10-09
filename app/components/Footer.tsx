@@ -7,9 +7,6 @@ export default function Footer() {
           <span className="font-serif text-xl tracking-[0.2em] font-medium text-white">
             OOTD
           </span>
-          <span className="text-[10px] tracking-[0.2em] uppercase px-2 py-0.5 rounded-full bg-accent-gold/15 text-accent-gold border border-accent-gold/25 font-medium">
-            Men
-          </span>
           <span className="text-white/30 text-xs hidden sm:inline">&middot;</span>
           <span className="text-xs text-white/40 hidden sm:inline">
             Your Style, Written In the Stars
