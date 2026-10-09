@@ -1,10 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Detect mobile / iPhone screen
+    const mql = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mql.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches);
+    };
+
+    mql.addEventListener("change", handleChange);
+    return () => mql.removeEventListener("change", handleChange);
+  }, []);
+
+  const videoSrc = isMobile ? "/hero-mobile.mp4" : "/hero.mp4";
 
   useEffect(() => {
     const video = videoRef.current;
@@ -13,20 +29,20 @@ export default function Hero() {
       video.playsInline = true;
       const playPromise = video.play();
       if (playPromise !== undefined) {
-        playPromise.catch(() => { });
+        playPromise.catch(() => {});
       }
     }
-  }, []);
+  }, [videoSrc]);
 
   return (
     <section
       id="hero"
       className="relative w-full h-screen min-h-[600px] overflow-hidden bg-black flex items-center justify-center"
     >
-      {/* Full bleed edge-to-edge cinematic video — clean and sharp without any blur overlays */}
+      {/* Full bleed edge-to-edge cinematic video with responsive mobile support */}
       <video
+        key={videoSrc}
         ref={videoRef}
-        src="/hero.mp4"
         autoPlay
         muted
         playsInline
@@ -36,7 +52,14 @@ export default function Hero() {
           // Pause on final frame without restarting
           e.currentTarget.pause();
         }}
-      />
+      >
+        <source
+          src="/hero-mobile.mp4"
+          media="(max-width: 768px)"
+          type="video/mp4"
+        />
+        <source src="/hero.mp4" type="video/mp4" />
+      </video>
 
       {/* Minimal clean scroll indicator without any background blur or fog */}
       <a
