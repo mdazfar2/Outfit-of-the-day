@@ -50,7 +50,7 @@ export default function WeeklyPalette({
                     onDaySelect(day);
                   }
                 }}
-                className={`group relative flex flex-col items-center gap-4 p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer ${
+                className={`group relative flex flex-col items-center gap-3 py-5 sm:py-6 px-3 sm:px-4 rounded-2xl transition-all duration-300 cursor-pointer ${
                   isSelected
                     ? "bg-white/[0.09] border-2 border-accent-gold shadow-2xl shadow-accent-gold/10 scale-[1.03]"
                     : "glass-card hover:scale-[1.02]"
@@ -80,7 +80,7 @@ export default function WeeklyPalette({
                   />
                 </div>
 
-                {/* Day name */}
+                {/* Day & Planet Name */}
                 <div className="text-center">
                   <p
                     className={`text-xs sm:text-sm font-semibold tracking-wide ${
@@ -93,28 +93,6 @@ export default function WeeklyPalette({
                     {day.planet}
                   </p>
                 </div>
-
-                {/* Colour swatch */}
-                <div className="flex items-center gap-1.5">
-                  <span
-                    className="w-5 h-5 rounded-full ring-2 ring-white/10 transition-transform duration-300 group-hover:scale-110"
-                    style={{
-                      backgroundColor: day.colorHex,
-                      boxShadow: isSelected
-                        ? `0 0 10px ${day.colorHex}55`
-                        : "none",
-                    }}
-                  />
-                </div>
-
-                {/* Colour name */}
-                <p
-                  className={`text-[10px] tracking-wider text-center line-clamp-1 ${
-                    isSelected ? "text-accent-gold font-medium" : "text-white/50"
-                  }`}
-                >
-                  {day.color}
-                </p>
               </a>
             );
           })}
