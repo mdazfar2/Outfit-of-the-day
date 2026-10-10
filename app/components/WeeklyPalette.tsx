@@ -129,7 +129,7 @@ export default function WeeklyPalette({
               <a
                 key={item.dayName}
                 href="#todays-look"
-                onClick={(e) => {
+                onClick={() => {
                   const dayData = DAYS.find((d) => d.index === item.dayIndex);
                   if (dayData && onDaySelect) {
                     onDaySelect(dayData);

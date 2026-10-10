@@ -161,23 +161,18 @@ export default function TheColorStory({
   // Initialize with selectedDay's index, or todayIndex, or default to current day
   const initialIndex = selectedDay ? selectedDay.index : (todayIndex !== -1 ? todayIndex : 6);
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [prevSelectedDayIndex, setPrevSelectedDayIndex] = useState(selectedDay?.index);
   const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(0);
   const [copiedHex, setCopiedHex] = useState<string | null>(null);
   const [isFading, setIsFading] = useState(false);
   const [isTextureModalOpen, setIsTextureModalOpen] = useState(false);
 
-  // Synchronize when selectedDay changes in the app (e.g. from Weekly Planet Palette or TodaysLook)
-  useEffect(() => {
-    if (selectedDay && selectedDay.index !== currentIndex) {
-      setIsFading(true);
-      const timer = setTimeout(() => {
-        setCurrentIndex(selectedDay.index);
-        setSelectedSwatchIndex(0);
-        setIsFading(false);
-      }, 180);
-      return () => clearTimeout(timer);
-    }
-  }, [selectedDay?.index]);
+  // Adjust state during render when selectedDay changes externally (React recommended pattern)
+  if (selectedDay && selectedDay.index !== prevSelectedDayIndex) {
+    setPrevSelectedDayIndex(selectedDay.index);
+    setCurrentIndex(selectedDay.index);
+    setSelectedSwatchIndex(0);
+  }
 
   const activeStory = COLOR_STORIES[currentIndex] || COLOR_STORIES[0];
   const activeSwatch = activeStory.swatches[selectedSwatchIndex] || activeStory.swatches[0];

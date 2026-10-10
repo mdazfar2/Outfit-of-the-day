@@ -1,24 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { ChevronDown } from "lucide-react";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    // Detect mobile / iPhone screen
-    const mql = window.matchMedia("(max-width: 768px)");
-    setIsMobile(mql.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsMobile(e.matches);
-    };
-
-    mql.addEventListener("change", handleChange);
-    return () => mql.removeEventListener("change", handleChange);
-  }, []);
+  const isMobile = useSyncExternalStore(
+    (callback) => {
+      const mql = window.matchMedia("(max-width: 768px)");
+      mql.addEventListener("change", callback);
+      return () => mql.removeEventListener("change", callback);
+    },
+    () => window.matchMedia("(max-width: 768px)").matches,
+    () => false
+  );
 
   const videoSrc = isMobile ? "/hero-mobile.mp4" : "/hero.mp4";
 

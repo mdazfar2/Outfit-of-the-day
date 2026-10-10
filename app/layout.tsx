@@ -53,6 +53,17 @@ export default function RootLayout({
         <link rel="icon" href="/Azfar-fevico.webp" type="image/webp" />
       </head>
       <body className="min-h-full flex flex-col bg-[#07080C] text-[#F3F4F6]">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(regs) {
+                  for (var reg of regs) { reg.unregister(); }
+                }).catch(function() {});
+              }
+            `,
+          }}
+        />
         {children}
       </body>
     </html>

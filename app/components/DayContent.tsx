@@ -1,29 +1,30 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useSyncExternalStore } from "react";
 import TodaysLook from "@/app/components/TodaysLook";
 import WeeklyPalette from "@/app/components/WeeklyPalette";
 import TheColorStory from "@/app/components/TheColorStory";
 import SolarSystem3D from "@/app/components/SolarSystem3D";
-import { DAYS, getTodayIndex, type DayData } from "@/app/data/days";
+import { DAYS, type DayData } from "@/app/data/days";
 
 export default function DayContent() {
-  const [selectedDay, setSelectedDay] = useState<DayData>(DAYS[6]); // Saturday default
-  const [todayIndex, setTodayIndex] = useState<number>(6);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  // Safe client day index subscription with stable SSR snapshot
+  const todayIndex = useSyncExternalStore(
+    () => () => {},
+    () => new Date().getDay(),
+    () => 6
+  );
 
-  useEffect(() => {
-    const currentToday = getTodayIndex();
-    setTodayIndex(currentToday);
-    setSelectedDay(DAYS[currentToday]);
-  }, []);
+  const [userSelectedDay, setUserSelectedDay] = useState<DayData | null>(null);
+  const selectedDay = userSelectedDay ?? (DAYS[todayIndex] || DAYS[6]);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleDayChange = useCallback(
     (day: DayData) => {
       if (day.index === selectedDay.index) return;
       setIsTransitioning(true);
       setTimeout(() => {
-        setSelectedDay(day);
+        setUserSelectedDay(day);
         setIsTransitioning(false);
       }, 250);
     },

@@ -207,6 +207,13 @@ export default function SolarSystem3D({ onSelectDay }: SolarSystem3DProps) {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.35;
 
+    // Reset WebGL pixelStorei flags to avoid texImage3D FLIP_Y/PREMULTIPLY_ALPHA warnings in WebGL2
+    const gl = renderer.getContext();
+    if (gl && "UNPACK_FLIP_Y_WEBGL" in gl) {
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+    }
+
     // 3. Orbit Controls - Complete 360° Free Spherical Rotation & Pan
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
