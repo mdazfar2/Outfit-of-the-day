@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import TodaysLook from "@/app/components/TodaysLook";
 import WeeklyPalette from "@/app/components/WeeklyPalette";
+import SolarSystem3D from "@/app/components/SolarSystem3D";
 import { DAYS, getTodayIndex, type DayData } from "@/app/data/days";
 
 export default function DayContent() {
@@ -28,6 +29,15 @@ export default function DayContent() {
     [selectedDay.index]
   );
 
+  const handleSelectDayIndex = useCallback(
+    (dayIndex: number) => {
+      if (DAYS[dayIndex]) {
+        handleDayChange(DAYS[dayIndex]);
+      }
+    },
+    [handleDayChange]
+  );
+
   return (
     <>
       <TodaysLook
@@ -41,6 +51,7 @@ export default function DayContent() {
         todayIndex={todayIndex}
         onDaySelect={handleDayChange}
       />
+      <SolarSystem3D onSelectDay={handleSelectDayIndex} />
     </>
   );
 }
