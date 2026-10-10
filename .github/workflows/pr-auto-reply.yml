@@ -11,10 +11,13 @@ permissions:
 jobs:
   auto-reply:
     runs-on: ubuntu-latest
+    env:
+      HAS_APP_ID: ${{ secrets.AZFARBOT_APP_ID }}
+      HAS_PRIVATE_KEY: ${{ secrets.AZFARBOT_PRIVATE_KEY }}
     steps:
       - name: Generate AzfarBot Token
         id: azfarbot
-        if: ${{ secrets.AZFARBOT_APP_ID != '' && secrets.AZFARBOT_PRIVATE_KEY != '' }}
+        if: ${{ env.HAS_APP_ID != '' && env.HAS_PRIVATE_KEY != '' }}
         uses: actions/create-github-app-token@v1
         with:
           app-id: ${{ secrets.AZFARBOT_APP_ID }}
@@ -24,9 +27,8 @@ jobs:
         id: auth
         shell: bash
         run: |
-          BOT_TOKEN="${{ steps.azfarbot.outputs.token }}"
-          if [ -n "$BOT_TOKEN" ]; then
-            echo "token=$BOT_TOKEN" >> $GITHUB_OUTPUT
+          if [ -n "${{ steps.azfarbot.outputs.token }}" ]; then
+            echo "token=${{ steps.azfarbot.outputs.token }}" >> $GITHUB_OUTPUT
           else
             echo "token=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_OUTPUT
           fi
