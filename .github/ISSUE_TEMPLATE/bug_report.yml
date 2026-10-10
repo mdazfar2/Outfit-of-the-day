@@ -1,0 +1,74 @@
+name: "🐛 Bug Report"
+description: "Report an issue, bug, or unexpected behavior in OOTD"
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve **OOTD**! Please fill out the sections below as accurately as possible.
+
+  - type: input
+    id: summary
+    attributes:
+      label: "Bug Summary"
+      description: "A clear and concise description of the bug."
+      placeholder: "e.g., Planet hover tilt behaves unexpectedly on mobile devices"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Step-by-step instructions to reproduce the issue."
+      placeholder: |
+        1. Navigate to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. Observe error: '...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected Behavior"
+      description: "What did you expect to happen?"
+      placeholder: "e.g., The 3D planet should rotate smoothly without clipping."
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots or Video"
+      description: "Drag and drop any screenshots or screen recordings demonstrating the issue."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: "Device & Browser"
+      description: "Which environment did this issue occur in?"
+      options:
+        - "Desktop - Chrome"
+        - "Desktop - Edge"
+        - "Desktop - Firefox"
+        - "Desktop - Safari"
+        - "Mobile - iOS Safari"
+        - "Mobile - Android Chrome"
+        - "Other"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have confirmed that this issue is not already reported in existing issues."
+          required: true
+        - label: "I have provided all relevant details to help reproduce this issue."
+          required: true

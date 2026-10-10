@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "🔒 Security Vulnerability"
+    url: "https://github.com/mdazfar2/Outfit-of-the-day/blob/main/SECURITY.md"
+    about: "Please report security vulnerabilities responsibly as described in our Security Policy."
+  - name: "💬 Questions & Discussions"
+    url: "https://github.com/mdazfar2/Outfit-of-the-day/issues/new"
+    about: "Ask questions, share styling thoughts, or connect with the community."

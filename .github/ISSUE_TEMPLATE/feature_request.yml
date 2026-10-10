@@ -1,0 +1,52 @@
+name: "✨ Feature Request"
+description: "Suggest an idea, celestial styling category, or enhancement for OOTD"
+title: "[FEATURE]: "
+labels: ["enhancement", "idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to make **OOTD** even more extraordinary? We would love to hear it!
+
+  - type: input
+    id: feature-title
+    attributes:
+      label: "Feature Title"
+      description: "A short, descriptive title for your proposal."
+      placeholder: "e.g., Add astronomical lunar phase tracker to Monday's look"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problem or Inspiration"
+      description: "Is your feature request related to a problem or an opportunity for improvement?"
+      placeholder: "e.g., Currently, users can only see the day's ruler planet, but having live lunar phase details would enhance..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Proposed Solution"
+      description: "Describe the solution or feature you would like to see implemented."
+      placeholder: "Describe how this feature should work, look, or feel."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives Considered"
+      description: "Describe any alternative solutions or styling approaches you've considered."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: "Contribution Willingness"
+      options:
+        - label: "I would be willing to contribute and submit a PR for this feature!"
+          required: false
