@@ -1,0 +1,19 @@
+name: "📝 Blank Issue / General Inquiry"
+description: "Open a blank or custom issue for any general topic, question, or thought"
+title: ""
+labels: ["general"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### ✦ Welcome to OOTD!
+        You can use this blank template to open an issue about anything — general discussions, questions, suggestions, or quick notes.
+
+  - type: textarea
+    id: details
+    attributes:
+      label: "Issue Details"
+      description: "Feel free to write anything you'd like to share or discuss."
+      placeholder: "Write your thoughts, questions, or details here..."
+    validations:
+      required: true
