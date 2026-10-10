@@ -115,7 +115,7 @@ export const DAYS: DayData[] = [
       "Thursday belongs to Jupiter, king of the heavens. Command the day in rich tan and camel tones. A premium heavyweight cotton T-shirt provides an expansive, relaxed luxury that feels regal yet effortless.",
     outfitSuggestion:
       "Warm tan / camel tailored T-shirt, tailored dark olive chinos, woven leather belt, tortoise acetate sunglasses",
-    outfitImage: "/men-tshirt-thursday.jpg",
+    outfitImage: "/warm-tan-tshirt.png",
     planetImage: "/planet-jupiter.jpg",
   },
   {
@@ -155,7 +155,7 @@ export const DAYS: DayData[] = [
       "Saturday carries the ancient majesty of Saturn. Pure, structured matte black delivers timeless dominance. A heavyweight luxury black T-shirt offers razor-sharp geometric lines and unmatched evening presence.",
     outfitSuggestion:
       "Structured matte black heavyweight T-shirt, tapered black denim, silver geometric pendant, black leather Chelsea boots",
-    outfitImage: "/men-tshirt-saturday.jpg",
+    outfitImage: "/black-tshirt.png",
     planetImage: "/planet-saturn.jpg",
   },
 ];
