@@ -1,36 +1,221 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+  <img src="./public/OOTD-banner-github.png" alt="OOTD — Celestial Menswear & Outfit of the Day" width="100%" />
 
-First, run the development server:
+  <br />
+  <br />
 
+  # ✦ OOTD &bull; Outfit Of The Day ✦
+  ### *Your Style, Written In the Stars.*
+
+  <p align="center">
+    A quiet-luxury menswear curation platform harmonizing celestial mechanics with timeless contemporary fashion. Each day of the week is governed by an astronomical body whose natural color resonance inspires your daily outfit palette.
+  </p>
+
+  <p align="center">
+    <a href="https://github.com/mdazfar2/Outfit-of-the-day"><img src="https://img.shields.io/badge/Next.js-16.4.0-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" /></a>
+    <a href="https://github.com/mdazfar2/Outfit-of-the-day"><img src="https://img.shields.io/badge/React-19.3.0-blue?style=for-the-badge&logo=react&logoColor=white" alt="React" /></a>
+    <a href="https://github.com/mdazfar2/Outfit-of-the-day"><img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>
+    <a href="https://github.com/mdazfar2/Outfit-of-the-day"><img src="https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" /></a>
+    <a href="https://github.com/mdazfar2/Outfit-of-the-day"><img src="https://img.shields.io/badge/Three.js-0.186-000000?style=for-the-badge&logo=three.js&logoColor=white" alt="Three.js" /></a>
+    <a href="https://github.com/mdazfar2/Outfit-of-the-day/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-gold?style=for-the-badge" alt="License: MIT" /></a>
+  </p>
+
+  <p align="center">
+    <a href="#-overview">Overview</a> •
+    <a href="#-core-features">Core Features</a> •
+    <a href="#-celestial-color-matrix">Planetary Palette</a> •
+    <a href="#-tech-stack">Tech Stack</a> •
+    <a href="#-getting-started">Getting Started</a> •
+    <a href="#-project-structure">Project Structure</a> •
+    <a href="#-author--credits">Author</a>
+  </p>
+
+</div>
+
+---
+
+## 🌌 Overview
+
+**OOTD** elevates the ritual of dressing into an astronomical science of color resonance and understated luxury. Ancient celestial traditions have mapped the seven days of the week to primary astrological bodies—from the **Sun** on Sunday to **Saturn** on Saturday. 
+
+This platform bridges ancient celestial rhythms with modern quiet-luxury tailoring, offering an interactive digital planetarium, 3D orbital dynamics, and comprehensive fashion lookbooks across 6 versatile menswear occasions.
+
+> [!NOTE]
+> *"Color is not merely aesthetic; it is energetic resonance. When aligned with the day's celestial ruler, an outfit transcends fashion to become personal magnetism."*
+
+---
+
+## ✨ Core Features
+
+### 🪐 1. Interactive 3D Solar System (Three.js)
+- **Full 360° Celestial Freedom**: Rotate, orbit, pitch, pan, and explore our cosmic neighborhood in real-time 3D.
+- **Deep Zoom & Dynamic Tracking**: Zoom from wide interplanetary orbital overviews down to the immediate atmosphere of any planet.
+- **Custom PBR & Procedural Surface Shaders**:
+  - Radiant glowing core with corona flares for the Sun.
+  - Realistic atmospheric bands for Jupiter.
+  - Semi-translucent dual ring systems for Saturn.
+  - Authentic planetary scales and smooth elliptical orbit lines.
+- **Floating Draggable HUD Card**:
+  - Interactive celestial inspector displaying planetary radius, orbital period, moons, and style connection.
+  - Double-tap or drag anywhere across the viewport to position the HUD card freely.
+  - Direct **"View [Day]'s Outfit"** portal linking astronomy directly to your wardrobe.
+
+### 💫 2. Celestial 3D Planet Engine (Today's Look)
+- **GPU-Accelerated Parallax Physics**: Dynamic cursor-tracking tilt and specular spherical lighting effects.
+- **Concentric Gyroscopic Orbital Rings**: Counter-rotating cosmic rings with glowing orbital nodes.
+- **Synchronized Daily State**: Instant live transition between days with automatic recognition of the current day of the week.
+
+### 🎨 3. 7-Day Planetary Color Alignments
+- Complete weekly rhythm harmonizing each day with its astronomical ruler and precision color tokens.
+- Dynamic color theme adaptation across the UI based on the selected day.
+
+### 🧥 4. Multi-Occasion Curated Lookbook
+Each day features 6 meticulously styled wardrobe categories tailored for modern masculine elegance:
+- ☀️ **Daily Wear**: Heavyweight drop-shoulder tees, relaxed silhouettes, and effortless minimal essentials.
+- ❄️ **Winter Wear**: Structured overcoats, cashmere layers, shearling collars, and thermal textures.
+- ☕ **Smart Casual**: Cuban collar shirts, knit polos, unstructured blazers, and pleated trousers.
+- 💼 **Formal & Office**: Bespoke tailored suits, crisp Egyptian cotton shirts, and polished oxford leathers.
+- 🍸 **Date Night & Evening**: Velvet dinner jackets, silk blend shirts, monochrome trousers, and subtle jewelry.
+- 🪔 **Festive & Ethnic**: Silk kurtas, bandhgala jackets, textured Nehru vests, and royal celebratory fabrics.
+
+### 🎬 5. Cinematic Ambient Experience
+- **Adaptive Responsive Hero**: Desktop and mobile-optimized dual video streams (`hero.mp4` / `hero-mobile.mp4`) with smooth fade-in controls.
+- **Starlink-Inspired Glassmorphic Navbar**: Frosted blur navigation bar with real-time Indian Standard Time (IST) celestial clock and quick day selector.
+- **Deep Space Starfield Canvas**: Subtle twinkling particle stars and nebula dust that react to scrolling.
+
+---
+
+## 🎨 Celestial Color Matrix
+
+| Day | Celestial Body | Archetype | Signature Color | Hex Code | Vibe & Energy |
+| :--- | :--- | :--- | :--- | :---: | :--- |
+| **Sunday** | ☀️ **Sun** | *Solar Vitality* | Solar Gold | `#E5A93C` | Magnetic presence, radiant confidence, warm luxury |
+| **Monday** | 🌙 **Moon** | *Lunar Calm* | Pearl White | `#F0EFEB` | Architectural clarity, poise, effortless serenity |
+| **Tuesday** | ♂️ **Mars** | *Martian Courage* | Rust Red | `#B84A39` | High impact, decisive power, bold sophistication |
+| **Wednesday** | ☿️ **Mercury** | *Mercurial Intellect* | Charcoal Slate | `#4A525A` | Clean sharpness, versatile strategy, quiet intellect |
+| **Thursday** | ♃ **Jupiter** | *Jovian Expansion* | Warm Tan | `#C29864` | Generous wealth, timeless warmth, grounded prestige |
+| **Friday** | ♀️ **Venus** | *Venusian Romance* | Vanilla Cream | `#EFE8DA` | Tactile softness, refined beauty, approachable charm |
+| **Saturday** | ♄ **Saturn** | *Saturnian Discipline*| Matte Black | `#18181B` | Sovereign authority, absolute timelessness, pure minimal power |
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+| :--- | :--- |
+| **Next.js 16 (App Router)** | High-performance React framework with Turbopack bundler |
+| **React 19** | Modern UI components, hooks, concurrent rendering |
+| **Three.js** | Interactive 3D WebGL solar system, orbital physics, geometry & PBR shaders |
+| **TypeScript 5** | Strict type-safety across planetary datasets and component props |
+| **Tailwind CSS v4** | Modern utility-first styling with custom quiet luxury palettes |
+| **Lucide React** | Clean, minimalist icon system for modern design aesthetics |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+Make sure you have **Node.js 18.x** or higher installed on your machine:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+node --version
+npm --version
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. Clone the Repository
+```bash
+git clone https://github.com/mdazfar2/Outfit-of-the-day.git
+cd Outfit-of-the-day
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Launch Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser to experience OOTD.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Available Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+In the project directory, you can run:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Command | Action |
+| :--- | :--- |
+| `npm run dev` | Starts local Next.js development server with hot-reload at `http://localhost:3000` |
+| `npm run build` | Compiles optimized production bundle using Turbopack |
+| `npm run start` | Runs the production-built application locally |
+| `npm run lint` | Runs ESLint to check for code standards and lint errors |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📂 Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+ootd/
+├── app/
+│   ├── components/
+│   │   ├── CosmicBackground.tsx   # Ambient canvas starfield & particle background
+│   │   ├── DayContent.tsx         # Centralized state container & section dividers
+│   │   ├── Footer.tsx             # Quiet luxury footer with celestial credits
+│   │   ├── Hero.tsx               # Cinematic video hero with responsive desktop/mobile streams
+│   │   ├── Navbar.tsx             # Frosted glassmorphic navbar with live IST celestial clock
+│   │   ├── OccasionSection.tsx    # 6-category fashion lookbook for the active day
+│   │   ├── SolarSystem3D.tsx      # Three.js 3D solar system with draggable HUD card
+│   │   ├── TodaysLook.tsx         # Today's look card with 3D planet hover & gyro tilt
+│   │   └── WeeklyPalette.tsx      # 7-day celestial overview card grid
+│   ├── data/
+│   │   ├── days.ts                # Astrological planetary days and color data
+│   │   └── occasions.ts           # Curated outfits across 6 lifestyle categories
+│   ├── favicon.ico
+│   ├── globals.css                # Global styles, fonts, and dark theme definitions
+│   ├── layout.tsx                 # Root layout with metadata & fonts
+│   └── page.tsx                   # Main page composition
+├── public/
+│   ├── OOTD-banner-github.png     # Official repository banner
+│   ├── hero.mp4                   # Desktop video background
+│   ├── hero-mobile.mp4            # Mobile video background
+│   ├── categories/                # High-res curated category lookbook images
+│   └── planet-*.jpg               # High-res celestial planet textures
+├── package.json                   # Project dependencies and npm scripts
+├── tsconfig.json                  # TypeScript compiler configuration
+└── README.md                      # Comprehensive project documentation
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions, suggestions, and feature requests are welcome!
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/CelestialFeature`)
+3. Commit your changes (`git commit -m 'feat: Add new celestial feature'`)
+4. Push to your branch (`git push origin feature/CelestialFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open-source and distributed under the **MIT License**. See the [LICENSE](LICENSE) file for more details.
+
+---
+
+## ✨ Author & Credits
+
+Crafted with ✨ by **[Azfar Alam](https://github.com/mdazfar2)**.
+
+<div align="center">
+  <p>
+    <a href="https://github.com/mdazfar2">
+      <img src="https://img.shields.io/badge/GitHub-mdazfar2-181717?style=for-the-badge&logo=github" alt="GitHub" />
+    </a>
+  </p>
+  <sub><i>"Your Style, Written In the Stars" &bull; OOTD &copy; 2026</i></sub>
+</div>
