@@ -14,16 +14,27 @@ jobs:
     steps:
       - name: Generate AzfarBot Token
         id: azfarbot
-        if: ${{ secrets.AZFARBOT_APP_ID != '' }}
+        if: ${{ secrets.AZFARBOT_APP_ID != '' && secrets.AZFARBOT_PRIVATE_KEY != '' }}
         uses: actions/create-github-app-token@v1
         with:
           app-id: ${{ secrets.AZFARBOT_APP_ID }}
           private-key: ${{ secrets.AZFARBOT_PRIVATE_KEY }}
 
+      - name: Set Auth Token
+        id: auth
+        shell: bash
+        run: |
+          BOT_TOKEN="${{ steps.azfarbot.outputs.token }}"
+          if [ -n "$BOT_TOKEN" ]; then
+            echo "token=$BOT_TOKEN" >> $GITHUB_OUTPUT
+          else
+            echo "token=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_OUTPUT
+          fi
+
       - name: Reply to new pull request
         uses: actions/github-script@v7
         with:
-          github-token: ${{ steps.azfarbot.outputs.token || secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.auth.outputs.token }}
           script: |
             const author = context.payload.pull_request.user.login;
             const prNumber = context.payload.pull_request.number;
