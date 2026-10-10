@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import TodaysLook from "@/app/components/TodaysLook";
 import WeeklyPalette from "@/app/components/WeeklyPalette";
+import TheColorStory from "@/app/components/TheColorStory";
 import SolarSystem3D from "@/app/components/SolarSystem3D";
 import { DAYS, getTodayIndex, type DayData } from "@/app/data/days";
 
@@ -51,6 +52,11 @@ export default function DayContent() {
         selectedDay={selectedDay}
         todayIndex={todayIndex}
         onDaySelect={handleDayChange}
+      />
+
+      <TheColorStory
+        onDaySelect={handleDayChange}
+        selectedDay={selectedDay}
       />
 
       <SolarSystem3D onSelectDay={handleSelectDayIndex} />

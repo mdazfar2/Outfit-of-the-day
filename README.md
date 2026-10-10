@@ -77,9 +77,10 @@ This platform bridges ancient celestial rhythms with modern quiet-luxury tailori
 - **Concentric Gyroscopic Orbital Rings**: Counter-rotating cosmic rings with glowing orbital nodes.
 - **Synchronized Daily State**: Instant live transition between days with automatic recognition of the current day of the week.
 
-### 🎨 3. 7-Day Planetary Color Alignments
-- Complete weekly rhythm harmonizing each day with its astronomical ruler and precision color tokens.
-- Dynamic color theme adaptation across the UI based on the selected day.
+### 🎨 3. The Color Story Lookbook & Swatches
+- **Alternating 3-Column Editorial Rows**: Seamlessly pairs ultra-high-resolution planetary surfaces and textures with curated menswear fashion imagery and 4-color palette swatch dot cards.
+- **Harmonious Planetary Swatches**: Tactile swatch dots with one-click hex copying and curated editorial styling quotes for every day of the week.
+- **Planetary Filter Navigation**: Smooth pill-tab selector allowing users to browse all alignments or isolate specific planetary aesthetics.
 
 ### 🧥 4. Multi-Occasion Curated Lookbook
 Each day features 6 meticulously styled wardrobe categories tailored for modern masculine elegance:
@@ -178,6 +179,7 @@ ootd/
 │   │   ├── Navbar.tsx             # Frosted glassmorphic navbar with live IST celestial clock
 │   │   ├── OccasionSection.tsx    # 6-category fashion lookbook for the active day
 │   │   ├── SolarSystem3D.tsx      # Three.js 3D solar system with draggable HUD card
+│   │   ├── TheColorStory.tsx      # Editorial 3-column alternating lookbook & swatches
 │   │   ├── TodaysLook.tsx         # Today's look card with 3D planet hover & gyro tilt
 │   │   └── WeeklyPalette.tsx      # 7-day celestial overview card grid
 │   ├── data/

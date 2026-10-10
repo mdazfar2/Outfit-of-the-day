@@ -27,6 +27,7 @@ export default function Navbar() {
   const navLinks = [
     { label: "Today's Look", href: "#todays-look" },
     { label: "Weekly Palette", href: "#weekly-palette" },
+    { label: "The Color Story", href: "#color-story" },
   ];
 
   return (
