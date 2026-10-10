@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { 
   ArrowLeft, 
@@ -8,7 +8,8 @@ import {
   Check, 
   Copy, 
   Compass,
-  Layers
+  Layers,
+  ZoomIn
 } from "lucide-react";
 import { DAYS, type DayData } from "@/app/data/days";
 
@@ -156,6 +157,7 @@ export default function TheColorStory({ onDaySelect }: TheColorStoryProps) {
   const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(0);
   const [copiedHex, setCopiedHex] = useState<string | null>(null);
   const [isFading, setIsFading] = useState(false);
+  const [isTextureModalOpen, setIsTextureModalOpen] = useState(false);
 
   const activeStory = COLOR_STORIES[currentIndex];
   const activeSwatch = activeStory.swatches[selectedSwatchIndex] || activeStory.swatches[0];
@@ -193,6 +195,27 @@ export default function TheColorStory({ onDaySelect }: TheColorStoryProps) {
     setCopiedHex(hex);
     setTimeout(() => setCopiedHex(null), 1800);
   };
+
+  // Close modal with Escape key and lock scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsTextureModalOpen(false);
+      }
+    };
+
+    if (isTextureModalOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
+  }, [isTextureModalOpen]);
 
   return (
     <section id="color-story" className="relative z-10 py-24 sm:py-36 scroll-mt-20 overflow-hidden">
@@ -239,7 +262,7 @@ export default function TheColorStory({ onDaySelect }: TheColorStoryProps) {
         </div>
 
         {/* ========================================================
-            TOP PLANETARY DOCK (7 DAYS STRIP — PLACED AT THE TOP)
+            TOP PLANETARY DOCK (7 DAYS STRIP)
             ======================================================== */}
         <div className="mb-10 sm:mb-12">
           <div className="p-2 sm:p-2.5 bg-[#0A0D15]/90 border border-white/10 rounded-2xl sm:rounded-full backdrop-blur-xl shadow-2xl max-w-4xl mx-auto">
@@ -451,7 +474,7 @@ export default function TheColorStory({ onDaySelect }: TheColorStoryProps) {
                 </div>
               </div>
 
-              {/* Active Swatch Magnifier Banner */}
+              {/* Active Swatch Magnifier Banner (Matching Screenshot 1) */}
               <div 
                 className="p-4 rounded-2xl border border-white/10 flex items-center justify-between backdrop-blur-md"
                 style={{
@@ -459,10 +482,20 @@ export default function TheColorStory({ onDaySelect }: TheColorStoryProps) {
                 }}
               >
                 <div className="flex items-center gap-3">
-                  <div 
-                    className="w-10 h-10 rounded-xl border border-white/25 shadow-inner"
+                  {/* Clickable Left Side Color Swatch -> Opens Modal */}
+                  <button
+                    type="button"
+                    onClick={() => setIsTextureModalOpen(true)}
+                    className="group/swatchbtn relative w-10 h-10 rounded-xl border border-white/25 shadow-inner cursor-pointer transition-all duration-300 hover:scale-105 hover:ring-2 hover:ring-accent-gold/60 focus:outline-none flex-shrink-0"
                     style={{ backgroundColor: activeSwatch.hex }}
-                  />
+                    title="Click to view full fabric texture weave"
+                    aria-label={`View ${activeSwatch.name} fabric texture`}
+                  >
+                    <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-black/35 opacity-0 group-hover/swatchbtn:opacity-100 transition-opacity">
+                      <ZoomIn size={14} className="text-white drop-shadow" />
+                    </span>
+                  </button>
+
                   <div>
                     <p className="text-[10px] uppercase font-mono tracking-wider text-accent-gold">Selected Focus</p>
                     <p className="text-sm font-semibold text-white">{activeSwatch.name}</p>
@@ -481,6 +514,28 @@ export default function TheColorStory({ onDaySelect }: TheColorStoryProps) {
         </div>
 
       </div>
+
+      {/* Pure Color Swatch Modal Popup — Zero extra text, pure rich color, closes instantly on any click */}
+      {isTextureModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md cursor-pointer animate-in fade-in duration-100"
+          onClick={() => setIsTextureModalOpen(false)}
+        >
+          <div 
+            className="relative aspect-square w-full max-w-sm sm:max-w-md lg:max-w-lg rounded-3xl overflow-hidden border border-white/20 shadow-2xl shadow-black animate-in zoom-in-95 duration-100 cursor-pointer select-none"
+            style={{ backgroundColor: activeSwatch.hex }}
+            onClick={() => setIsTextureModalOpen(false)}
+          >
+            {/* Subtle luxury lighting gradient */}
+            <div 
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.18) 0%, rgba(0,0,0,0.25) 100%)"
+              }}
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
