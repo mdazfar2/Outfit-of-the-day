@@ -57,6 +57,7 @@ export default function DayContent() {
       <TheColorStory
         onDaySelect={handleDayChange}
         selectedDay={selectedDay}
+        todayIndex={todayIndex}
       />
 
       <SolarSystem3D onSelectDay={handleSelectDayIndex} />

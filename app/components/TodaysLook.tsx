@@ -83,28 +83,29 @@ export default function TodaysLook({
                 <button
                   key={day.day}
                   onClick={() => onDayChange(day)}
-                  className={`relative flex flex-col items-center gap-1.5 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex-shrink-0 cursor-pointer ${
+                  className={`relative flex flex-col items-center gap-1.5 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 flex-shrink-0 cursor-pointer border ${
                     isActive
-                      ? "bg-white text-[#0A0D14] shadow-lg shadow-white/10 scale-[1.02] font-semibold"
-                      : "bg-transparent text-white/60 hover:text-white hover:bg-white/5"
+                      ? "bg-[#1B202E] border-white/20 text-white shadow-lg shadow-black/60 font-semibold ring-1 ring-white/10 scale-[1.02]"
+                      : "border-transparent bg-transparent text-stone-400 hover:text-white hover:bg-white/[0.04]"
                   }`}
                 >
-                  <span className="text-[10px] sm:text-xs tracking-[0.16em] uppercase">
+                  <span className={`text-[10px] sm:text-xs tracking-[0.16em] uppercase font-mono ${isActive ? "text-white" : "text-stone-300"}`}>
                     {day.dayShort}
                   </span>
                   <span
-                    className="w-3 h-3 rounded-full transition-transform duration-300"
+                    className={`w-3 h-3 rounded-full border transition-transform duration-300 ${
+                      isActive ? "scale-110 border-white/40 shadow-sm" : "border-white/20"
+                    }`}
                     style={{
                       backgroundColor: day.colorHex,
-                      boxShadow: isActive ? "0 0 8px rgba(0,0,0,0.3)" : "none",
                     }}
                   />
                   {isToday && (
                     <span
-                      className={`text-[8px] tracking-wider uppercase px-1.5 py-0.2 rounded-full ${
+                      className={`text-[8px] tracking-wider uppercase px-2 py-0.5 rounded-full font-medium ${
                         isActive
-                          ? "bg-black/10 text-black font-bold"
-                          : "bg-accent-gold/20 text-accent-gold"
+                          ? "bg-accent-gold/20 text-accent-gold border border-accent-gold/30"
+                          : "bg-white/[0.06] text-stone-300 border border-white/10"
                       }`}
                     >
                       Today

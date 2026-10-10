@@ -150,33 +150,63 @@ const COLOR_STORIES: ColorStoryData[] = [
 interface TheColorStoryProps {
   onDaySelect?: (day: DayData) => void;
   selectedDay?: DayData;
+  todayIndex?: number;
 }
 
-export default function TheColorStory({ onDaySelect }: TheColorStoryProps) {
-  const [currentIndex, setCurrentIndex] = useState(2); // Tuesday / Mars default matching screenshot
+export default function TheColorStory({
+  onDaySelect,
+  selectedDay,
+  todayIndex = -1,
+}: TheColorStoryProps) {
+  // Initialize with selectedDay's index, or todayIndex, or default to current day
+  const initialIndex = selectedDay ? selectedDay.index : (todayIndex !== -1 ? todayIndex : 6);
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [selectedSwatchIndex, setSelectedSwatchIndex] = useState(0);
   const [copiedHex, setCopiedHex] = useState<string | null>(null);
   const [isFading, setIsFading] = useState(false);
   const [isTextureModalOpen, setIsTextureModalOpen] = useState(false);
 
-  const activeStory = COLOR_STORIES[currentIndex];
+  // Synchronize when selectedDay changes in the app (e.g. from Weekly Planet Palette or TodaysLook)
+  useEffect(() => {
+    if (selectedDay && selectedDay.index !== currentIndex) {
+      setIsFading(true);
+      const timer = setTimeout(() => {
+        setCurrentIndex(selectedDay.index);
+        setSelectedSwatchIndex(0);
+        setIsFading(false);
+      }, 180);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedDay?.index]);
+
+  const activeStory = COLOR_STORIES[currentIndex] || COLOR_STORIES[0];
   const activeSwatch = activeStory.swatches[selectedSwatchIndex] || activeStory.swatches[0];
 
   const handleNext = () => {
     setIsFading(true);
     setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % COLOR_STORIES.length);
+      const nextIndex = (currentIndex + 1) % COLOR_STORIES.length;
+      setCurrentIndex(nextIndex);
       setSelectedSwatchIndex(0);
       setIsFading(false);
+      if (onDaySelect) {
+        const matchingDay = DAYS.find((d) => d.index === nextIndex);
+        if (matchingDay) onDaySelect(matchingDay);
+      }
     }, 220);
   };
 
   const handlePrev = () => {
     setIsFading(true);
     setTimeout(() => {
-      setCurrentIndex((prev) => (prev - 1 + COLOR_STORIES.length) % COLOR_STORIES.length);
+      const prevIndex = (currentIndex - 1 + COLOR_STORIES.length) % COLOR_STORIES.length;
+      setCurrentIndex(prevIndex);
       setSelectedSwatchIndex(0);
       setIsFading(false);
+      if (onDaySelect) {
+        const matchingDay = DAYS.find((d) => d.index === prevIndex);
+        if (matchingDay) onDaySelect(matchingDay);
+      }
     }, 220);
   };
 
@@ -187,6 +217,10 @@ export default function TheColorStory({ onDaySelect }: TheColorStoryProps) {
       setCurrentIndex(index);
       setSelectedSwatchIndex(0);
       setIsFading(false);
+      if (onDaySelect) {
+        const matchingDay = DAYS.find((d) => d.index === index);
+        if (matchingDay) onDaySelect(matchingDay);
+      }
     }, 220);
   };
 
