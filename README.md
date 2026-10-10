@@ -3,14 +3,14 @@
 ![OOTD Banner](https://raw.githubusercontent.com/mdazfar2/Outfit-of-the-day/main/public/OOTD-banner-github.png)
 
 <p align="center">
- <a href="https://github.com/mdazfar2/Super-intelligence-lab"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"></a>
-     <a href="https://github.com/mdazfar2/"><img src="https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg?v=103"></a>
-<a href="https://github.com/mdazfar2/Super-intelligence-lab/blob/main/LICENSE"><img src="https://img.shields.io/badge/MIT-Licence-blue.svg?v=103"></a>
-<img src="https://api.visitorbadge.io/api/visitors?path=mdazfar2%2FSuper-intelligence-lab%20&countColor=%23263759&style=flat" alt="Visitors"/>
-    <a href="https://github.com/mdazfar2/Super-intelligence-lab/graphs/contributors"><img src="https://img.shields.io/github/contributors/mdazfar2/Super-intelligence-lab?color=brightgreen"></a>
-    <a href="https://github.com/mdazfar2/Super-intelligence-lab/stargazers"><img src="https://img.shields.io/github/stars/mdazfar2/Super-intelligence-lab?color=0059b3"></a>
-<a href="https://github.com/mdazfar2/Super-intelligence-lab/network/members"><img src="https://img.shields.io/github/forks/mdazfar2/Super-intelligence-lab?color=yellow"></a>
-<a href="https://github.com/mdazfar2/Super-intelligence-lab/issues"><img src="https://img.shields.io/github/issues/mdazfar2/Super-intelligence-lab?color=0059b3"></a>
+  <a href="https://github.com/mdazfar2/Outfit-of-the-day"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Open Source"></a>
+  <a href="https://github.com/mdazfar2/"><img src="https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg?v=103" alt="Maintained"></a>
+  <a href="https://github.com/mdazfar2/Outfit-of-the-day/blob/main/LICENSE"><img src="https://img.shields.io/badge/Apache_2.0-License-blue.svg?v=103" alt="Apache 2.0 License"></a>
+  <img src="https://api.visitorbadge.io/api/visitors?path=mdazfar2%2FOutfit-of-the-day%20&countColor=%23263759&style=flat" alt="Visitors"/>
+  <a href="https://github.com/mdazfar2/Outfit-of-the-day/graphs/contributors"><img src="https://img.shields.io/github/contributors/mdazfar2/Outfit-of-the-day?color=brightgreen" alt="Contributors"></a>
+  <a href="https://github.com/mdazfar2/Outfit-of-the-day/stargazers"><img src="https://img.shields.io/github/stars/mdazfar2/Outfit-of-the-day?color=0059b3" alt="Stars"></a>
+  <a href="https://github.com/mdazfar2/Outfit-of-the-day/network/members"><img src="https://img.shields.io/github/forks/mdazfar2/Outfit-of-the-day?color=yellow" alt="Forks"></a>
+  <a href="https://github.com/mdazfar2/Outfit-of-the-day/issues"><img src="https://img.shields.io/github/issues/mdazfar2/Outfit-of-the-day?color=0059b3" alt="Issues"></a>
 </p>
 
   <br />
@@ -29,7 +29,7 @@
     <a href="https://github.com/mdazfar2/Outfit-of-the-day"><img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /></a>
     <a href="https://github.com/mdazfar2/Outfit-of-the-day"><img src="https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" /></a>
     <a href="https://github.com/mdazfar2/Outfit-of-the-day"><img src="https://img.shields.io/badge/Three.js-0.186-000000?style=for-the-badge&logo=three.js&logoColor=white" alt="Three.js" /></a>
-    <a href="https://github.com/mdazfar2/Outfit-of-the-day/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-gold?style=for-the-badge" alt="License: MIT" /></a>
+    <a href="https://github.com/mdazfar2/Outfit-of-the-day/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-gold?style=for-the-badge" alt="License: Apache 2.0" /></a>
   </p>
 
   <p align="center">
@@ -214,7 +214,7 @@ Contributions, suggestions, and feature requests are welcome!
 
 ## 📄 License
 
-This project is open-source and distributed under the **MIT License**. See the [LICENSE](LICENSE) file for more details.
+This project is open-source and distributed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for more details.
 
 ---
 
