@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { DAYS, type DayData } from "@/app/data/days";
 import { Sparkles, Shirt } from "lucide-react";
@@ -11,12 +12,54 @@ interface TodaysLookProps {
   onDayChange: (day: DayData) => void;
 }
 
+const PLANET_SYMBOLS: Record<string, string> = {
+  Sun: "☉",
+  Moon: "☽",
+  Mars: "♂",
+  Mercury: "☿",
+  Jupiter: "♃",
+  Venus: "♀",
+  Saturn: "♄",
+};
+
 export default function TodaysLook({
   selectedDay,
   todayIndex,
   isTransitioning,
   onDayChange,
 }: TodaysLookProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const tiltX = -((y - centerY) / centerY) * 10;
+    const tiltY = ((x - centerX) / centerX) * 10;
+    setTilt({ x: tiltX, y: tiltY });
+    setGlare({
+      x: (x / rect.width) * 100,
+      y: (y / rect.height) * 100,
+      opacity: 0.22,
+    });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setTilt({ x: 0, y: 0 });
+    setGlare({ x: 50, y: 50, opacity: 0 });
+  };
+
   return (
     <section id="todays-look" className="relative z-10 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6">
@@ -82,40 +125,195 @@ export default function TodaysLook({
           }`}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            {/* Model & T-Shirt Image */}
-            <div className="relative">
-              <div className="relative overflow-hidden rounded-2xl aspect-[3/4] max-w-md mx-auto shadow-2xl border border-white/10 group">
+            {/* Model & T-Shirt Image with 3D Planet Engine */}
+            <div
+              className="relative preserve-3d"
+              style={{ perspective: 1200 }}
+              onMouseMove={handleMouseMove}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <div
+                ref={cardRef}
+                className="relative overflow-hidden rounded-2xl aspect-[3/4] max-w-md mx-auto shadow-2xl transition-all duration-300 ease-out group cursor-pointer border"
+                style={{
+                  transform: isHovered
+                    ? `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale3d(1.025, 1.025, 1.025)`
+                    : "rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
+                  transition: isHovered
+                    ? "transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease"
+                    : "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease",
+                  borderColor: isHovered
+                    ? `${selectedDay.colorHex}66`
+                    : "rgba(255, 255, 255, 0.1)",
+                  boxShadow: isHovered
+                    ? `0 30px 60px -15px rgba(0, 0, 0, 0.85), 0 0 40px -10px ${selectedDay.colorHex}44`
+                    : "0 20px 40px -15px rgba(0, 0, 0, 0.7)",
+                }}
+              >
                 <Image
                   src={selectedDay.outfitImage}
                   alt={`${selectedDay.day} men's look — ${selectedDay.outfitSuggestion}`}
                   fill
                   priority
                   sizes="(max-width: 768px) 90vw, 45vw"
-                  className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
-                {/* Subtle vignette overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                {/* Bottom badge */}
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none">
-                  <span className="text-xs uppercase tracking-widest text-white/90 font-medium px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
+                {/* Subtle vignette overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25 pointer-events-none" />
+
+                {/* 3D Holographic Glare Sheen following cursor */}
+                <div
+                  className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+                  style={{
+                    opacity: glare.opacity,
+                    background: `radial-gradient(circle 260px at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.08) 35%, transparent 70%)`,
+                  }}
+                />
+
+                {/* On-Hover 3D Celestial Alignment HUD Overlay */}
+                <div
+                  className={`absolute inset-0 pointer-events-none transition-all duration-400 ease-out flex flex-col justify-between p-6 ${
+                    isHovered ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  {/* Top-left alignment badge */}
+                  <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 self-start shadow-lg transform transition-transform duration-300">
+                    <span
+                      className="w-2 h-2 rounded-full animate-ping"
+                      style={{ backgroundColor: selectedDay.colorHex }}
+                    />
+                    <span className="text-[11px] font-medium tracking-widest uppercase text-white/95">
+                      {selectedDay.planet} Alignment
+                    </span>
+                    <span
+                      className="font-serif text-sm font-bold ml-0.5"
+                      style={{ color: selectedDay.colorHex }}
+                    >
+                      {PLANET_SYMBOLS[selectedDay.planet] || "✦"}
+                    </span>
+                  </div>
+
+                  {/* Center subtle celestial rings watermark */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-25">
+                    <div
+                      className="w-56 h-56 rounded-full border border-dashed animate-orbit-spin"
+                      style={{ borderColor: selectedDay.colorHex }}
+                    />
+                    <div
+                      className="absolute w-72 h-72 rounded-full border border-dotted animate-orbit-spin-reverse opacity-40"
+                      style={{ borderColor: selectedDay.colorHex }}
+                    />
+                  </div>
+                </div>
+
+                {/* Bottom badges */}
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
+                  <span className="text-xs uppercase tracking-widest text-white/95 font-medium px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/15 shadow-md">
                     {selectedDay.color}
                   </span>
-                  <span className="text-xs uppercase tracking-widest text-white/70 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
+                  <span className="text-xs uppercase tracking-widest text-white/80 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/15 shadow-md flex items-center gap-1.5">
+                    <span style={{ color: selectedDay.colorHex }}>
+                      {PLANET_SYMBOLS[selectedDay.planet] || "✦"}
+                    </span>
                     {selectedDay.planet}
                   </span>
                 </div>
               </div>
 
-              {/* Floating Planet Token */}
-              <div className="absolute -top-5 -right-3 sm:-top-6 sm:-right-4 w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden shadow-2xl border-2 border-white/20 ring-4 ring-black/60 animate-float">
-                <Image
-                  src={selectedDay.planetImage}
-                  alt={selectedDay.planet}
-                  width={80}
-                  height={80}
-                  className="w-full h-full object-cover"
+              {/* 3D Floating Interactive Planet Sphere with Gyroscopic Orbital Rings */}
+              <div
+                className="absolute -top-6 -right-4 sm:-top-8 sm:-right-6 w-24 h-24 sm:w-28 sm:h-28 z-20 pointer-events-none transition-all duration-300 ease-out"
+                style={{
+                  transform: isHovered
+                    ? `translate3d(0, -10px, 65px) scale(1.22)`
+                    : "translate3d(0, 0, 0) scale(1)",
+                  filter: isHovered
+                    ? `drop-shadow(0 15px 35px ${selectedDay.colorHex}88)`
+                    : "drop-shadow(0 10px 20px rgba(0,0,0,0.8))",
+                }}
+              >
+                {/* 3D Gyroscopic Orbital Ring 1 */}
+                <div
+                  className={`absolute -inset-4 rounded-full border pointer-events-none transition-opacity duration-300 ${
+                    isHovered
+                      ? "opacity-90 animate-orbit-spin"
+                      : "opacity-40 animate-orbit-spin"
+                  }`}
+                  style={{
+                    borderWidth: isHovered ? "2px" : "1.5px",
+                    borderColor: selectedDay.colorHex,
+                    boxShadow: isHovered
+                      ? `0 0 20px ${selectedDay.colorHex}`
+                      : "none",
+                  }}
                 />
+
+                {/* 3D Gyroscopic Orbital Ring 2 (counter-rotating with stardust bead) */}
+                <div
+                  className={`absolute -inset-2 rounded-full border pointer-events-none transition-opacity duration-300 ${
+                    isHovered
+                      ? "opacity-75 animate-orbit-spin-reverse"
+                      : "opacity-25 animate-orbit-spin-reverse"
+                  }`}
+                  style={{
+                    borderWidth: "1.5px",
+                    borderStyle: isHovered ? "solid" : "dashed",
+                    borderColor: selectedDay.colorSecondaryHex || "#FFF",
+                    boxShadow: isHovered
+                      ? `0 0 15px ${selectedDay.colorSecondaryHex}`
+                      : "none",
+                  }}
+                >
+                  {/* Orbiting Stardust Bead */}
+                  <span
+                    className="absolute -top-1 left-1/2 w-2 h-2 rounded-full shadow-lg"
+                    style={{
+                      backgroundColor: selectedDay.colorHex,
+                      boxShadow: `0 0 8px ${selectedDay.colorHex}`,
+                    }}
+                  />
+                </div>
+
+                {/* 3D Planet Sphere Body */}
+                <div
+                  className="relative w-full h-full rounded-full overflow-hidden shadow-2xl transition-all duration-300 ring-2 ring-white/25"
+                  style={{
+                    boxShadow: isHovered
+                      ? `inset -12px -12px 24px rgba(0, 0, 0, 0.95), inset 6px 6px 14px rgba(255, 255, 255, 0.5), 0 0 35px ${selectedDay.colorHex}`
+                      : `inset -8px -8px 16px rgba(0, 0, 0, 0.9), inset 3px 3px 8px rgba(255, 255, 255, 0.3), 0 0 15px rgba(0,0,0,0.5)`,
+                  }}
+                >
+                  {/* Planet Texture */}
+                  <Image
+                    src={selectedDay.planetImage}
+                    alt={selectedDay.planet}
+                    fill
+                    sizes="120px"
+                    className={`w-full h-full object-cover transition-transform duration-700 ${
+                      isHovered ? "scale-110" : "scale-100"
+                    }`}
+                  />
+
+                  {/* 3D Spherical Specular Light & Terminator Shadow Overlay */}
+                  <div
+                    className="absolute inset-0 pointer-events-none rounded-full"
+                    style={{
+                      background:
+                        "radial-gradient(circle at 32% 28%, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.18) 22%, rgba(0,0,0,0) 48%, rgba(0,0,0,0.85) 80%, rgba(0,0,0,0.98) 100%)",
+                    }}
+                  />
+
+                  {/* Atmospheric Color Corona Tint */}
+                  <div
+                    className="absolute inset-0 pointer-events-none rounded-full transition-opacity duration-300"
+                    style={{
+                      opacity: isHovered ? 0.35 : 0.15,
+                      background: `radial-gradient(circle at 35% 30%, ${selectedDay.colorHex} 0%, transparent 70%)`,
+                    }}
+                  />
+                </div>
               </div>
             </div>
 
