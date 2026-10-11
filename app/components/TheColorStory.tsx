@@ -72,7 +72,7 @@ const COLOR_STORIES: ColorStoryData[] = [
     tagline: "Martian Drive · Earthy Fire",
     energy: "Decisive Action · Raw Confidence",
     planetImage: "/color-story/planets-images/tuesday-mars.png",
-    clothingImage: "/color-story/tuesday.png",
+    clothingImage: "/color-story/tuesday-look.png",
     quote: "Rust and earthy warm tones are bold yet deeply wearable. Anchor with neutrals.",
     swatches: [
       { name: "Rust", hex: "#993D2C", fabric: "Camp Collar Cotton Shirt", role: "Primary Accent" },

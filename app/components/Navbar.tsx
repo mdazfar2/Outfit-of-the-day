@@ -48,6 +48,8 @@ export default function Navbar() {
         {/* Brand / Logo */}
         <a
           href="#"
+          aria-label="OOTD by Azfar — Home"
+          title="OOTD by Azfar"
           className="group flex items-center gap-2.5 font-serif text-xl sm:text-2xl tracking-[0.22em] font-medium text-white transition-opacity hover:opacity-80"
         >
           <span>OOTD</span>

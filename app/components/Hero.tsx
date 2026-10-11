@@ -35,6 +35,11 @@ export default function Hero() {
       id="hero"
       className="relative w-full h-screen min-h-[600px] overflow-hidden bg-black flex items-center justify-center"
     >
+      {/* Primary Semantic H1 for Google Search Indexing */}
+      <h1 className="sr-only">
+        OOTD by Azfar — Daily Luxury Men&apos;s Outfit &amp; Celestial Style Guide
+      </h1>
+
       {/* Full bleed edge-to-edge cinematic video with responsive mobile support */}
       <video
         key={videoSrc}

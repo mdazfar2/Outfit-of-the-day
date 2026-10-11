@@ -13,22 +13,25 @@ export default function Footer() {
           </span>
         </div>
 
-        {/* Crafted by Credit */}
+        {/* Crafted by Credit — Explicit Semantic Anchor for SEO */}
         <p className="text-xs text-white/60 tracking-wide">
-          Crafted with <span className="text-accent-gold">✨</span> by{" "}
+          OOTD by{" "}
           <a
             href="https://github.com/mdazfar2"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white font-medium hover:text-accent-gold underline underline-offset-4 decoration-accent-gold/40 hover:decoration-accent-gold transition-colors duration-200"
+            title="Md Azfar Alam (mdazfar2) on GitHub"
           >
             Azfar Alam
           </a>
+          <span className="mx-2 text-white/30">&middot;</span>
+          <span>Crafted with <span className="text-accent-gold">✨</span></span>
         </p>
 
         {/* Copyright */}
         <p className="text-[11px] text-white/30 tracking-wider">
-          &copy; 2026 OOTD. All rights reserved.
+          &copy; 2026 OOTD by Azfar. All rights reserved.
         </p>
       </div>
     </footer>
