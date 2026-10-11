@@ -151,6 +151,11 @@ npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) in your browser to experience OOTD.
 
+- To open OOTD on a phone connected to the same Wi-Fi/network, find your computer's
+local IPv4 address (run `ipconfig` on Windows) and visit
+`http://<computer-ip>:3000` on the phone, for example `http://192.168.1.5:3000`.
+Allow Node.js through the computer's firewall if prompted.
+
 ---
 
 ## 📦 Available Scripts
@@ -159,9 +164,9 @@ In the project directory, you can run:
 
 | Command | Action |
 | :--- | :--- |
-| `npm run dev` | Starts local Next.js development server with hot-reload at `http://localhost:3000` |
+| `npm run dev` | Starts the Next.js development server with hot-reload, accessible at `http://localhost:3000` and on the local network |
 | `npm run build` | Compiles optimized production bundle using Turbopack |
-| `npm run start` | Runs the production-built application locally |
+| `npm run start` | Runs the production-built application locally and on the local network |
 | `npm run lint` | Runs ESLint to check for code standards and lint errors |
 
 ---
