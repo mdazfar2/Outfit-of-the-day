@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Footer() {
   return (
     <footer className="relative z-10 border-t border-white/8 bg-black/40 backdrop-blur-xl py-10 sm:py-12">
@@ -14,17 +16,29 @@ export default function Footer() {
         </div>
 
         {/* crafted by credit */}
-        <p className="text-xs text-white/60 tracking-wide">
-          Crafted with <span className="text-accent-gold">✨</span> by{" "}
+        <div className="flex items-center justify-center gap-2 text-xs text-white/60 tracking-wide">
+          <span className="flex items-center gap-1.5 leading-none">
+            <span>Crafted with</span>
+            <span className="text-accent-gold text-xs leading-none">✨</span>
+            <span>by</span>
+          </span>
           <a
-            href="https://github.com/mdazfar2"
+            href="https://azfaralam.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white font-medium hover:text-accent-gold underline underline-offset-4 decoration-accent-gold/40 hover:decoration-accent-gold transition-colors duration-200"
+            className="inline-flex items-center justify-center transition-all duration-300 hover:scale-115 hover:drop-shadow-[0_0_10px_rgba(255,191,72,0.6)]"
+            title="Azfar Alam"
+            aria-label="Visit Azfar Alam's website"
           >
-            Azfar Alam
+            <Image
+              src="/Azfar-fevico.webp"
+              alt="Azfar Alam"
+              width={22}
+              height={22}
+              className="w-[21px] h-[21px] object-contain -translate-y-[1.5px]"
+            />
           </a>
-        </p>
+        </div>
 
         {/* copyright */}
         <p className="text-[11px] text-white/30 tracking-wider">
@@ -34,3 +48,4 @@ export default function Footer() {
     </footer>
   );
 }
+
