@@ -128,6 +128,17 @@ body {
   animation: float 4s ease-in-out infinite;
 }
 
+@keyframes preloader-bar {
+  0% { transform: scaleX(0); }
+  60% { transform: scaleX(0.75); }
+  100% { transform: scaleX(1); }
+}
+
+.animate-preloader-bar {
+  animation: preloader-bar 1.1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  transform-origin: left;
+}
+
 /* 3D Planet & Orbital Animations */
 @keyframes orbit-ring-spin {
   0% {
@@ -173,4 +184,6 @@ body {
 .preserve-3d {
   transform-style: preserve-3d;
 }
+
+
 

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
+import Preloader from "@/app/components/Preloader";
+
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
@@ -172,6 +174,7 @@ export default function RootLayout({
             `,
           }}
         />
+        <Preloader />
         {children}
       </body>
     </html>
