@@ -1,6 +1,11 @@
+
 <div align="center">
 
+<a href="https://ootdaz.vercel.app/" target="_blank">
+
 ![OOTD Banner](https://raw.githubusercontent.com/mdazfar2/Outfit-of-the-day/main/public/OOTD-banner-github.png)
+
+</a>
 
 <p align="center">
   <a href="https://github.com/mdazfar2/Outfit-of-the-day"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" alt="Open Source"></a>
@@ -13,7 +18,8 @@
   <a href="https://github.com/mdazfar2/Outfit-of-the-day/issues"><img src="https://img.shields.io/github/issues/mdazfar2/Outfit-of-the-day?color=0059b3" alt="Issues"></a>
 </p>
 
-  <br />
+
+
   <br />
 
   # ✦ OOTD &bull; Outfit Of The Day ✦
