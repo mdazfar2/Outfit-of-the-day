@@ -18,7 +18,7 @@
   --font-serif: var(--font-playfair);
 }
 
-/* Smooth scroll & dark mode */
+/* Smooth scroll & dark mod */
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
