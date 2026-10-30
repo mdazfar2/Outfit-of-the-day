@@ -1,0 +1,207 @@
+name: "AzfarAi - Greetings & Automation"
+
+on:
+  issues:
+    types: [opened, assigned, closed]
+  pull_request_target:
+    types: [opened, closed]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  greetings:
+    name: "AzfarAi Bot Greetings"
+    runs-on: ubuntu-latest
+    env:
+      HAS_APP_ID: ${{ secrets.AZFARAI_APP_ID }}
+      HAS_PRIVATE_KEY: ${{ secrets.AZFARAI_PRIVATE_KEY }}
+      GIT_AUTHOR_NAME: "AzfarAi[bot]"
+      GIT_AUTHOR_EMAIL: "AzfarAi[bot]@users.noreply.github.com"
+      GIT_COMMITTER_NAME: "AzfarAi[bot]"
+      GIT_COMMITTER_EMAIL: "AzfarAi[bot]@users.noreply.github.com"
+    steps:
+      - name: Generate AzfarAi Token
+        id: azfarai
+        if: ${{ env.HAS_APP_ID != '' && env.HAS_PRIVATE_KEY != '' }}
+        uses: actions/create-github-app-token@v1
+        continue-on-error: true
+        with:
+          app-id: ${{ secrets.AZFARAI_APP_ID }}
+          private-key: ${{ secrets.AZFARAI_PRIVATE_KEY }}
+
+      - name: Resolve Authentication Token
+        id: auth
+        shell: bash
+        env:
+          APP_TOKEN: ${{ steps.azfarai.outputs.token }}
+          FALLBACK_TOKEN: ${{ secrets.AZFARAI_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -n "$APP_TOKEN" ]; then
+            echo "token=$APP_TOKEN" >> "$GITHUB_OUTPUT"
+            echo "auth_mode=github_app" >> "$GITHUB_OUTPUT"
+            echo "Successfully authenticated with AzfarAi GitHub App token"
+          elif [ -n "$FALLBACK_TOKEN" ]; then
+            echo "token=$FALLBACK_TOKEN" >> "$GITHUB_OUTPUT"
+            echo "auth_mode=fallback" >> "$GITHUB_OUTPUT"
+            echo "Authenticated using fallback token"
+          else
+            echo "token=${{ secrets.GITHUB_TOKEN }}" >> "$GITHUB_OUTPUT"
+            echo "auth_mode=github_token" >> "$GITHUB_OUTPUT"
+            echo "Authenticated using default repository GITHUB_TOKEN"
+          fi
+
+      - name: Configure Git Identity
+        shell: bash
+        run: |
+          git config --global user.name "AzfarAi[bot]"
+          git config --global user.email "AzfarAi[bot]@users.noreply.github.com"
+
+      - name: AzfarAi Automated Comments
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.auth.outputs.token }}
+          script: |
+            const eventName = context.eventName;
+            const action = context.payload.action;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            console.log(`Processing event: ${eventName}, action: ${action}`);
+
+            const hasExistingComment = async (issueNumber, searchPattern) => {
+              try {
+                const { data: comments } = await github.rest.issues.listComments({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  per_page: 100
+                });
+                return comments.some(c => c.body && c.body.includes(searchPattern));
+              } catch (err) {
+                console.warn(`Could not check existing comments for #${issueNumber}: ${err.message}`);
+                return false;
+              }
+            };
+
+            const postComment = async (issueNumber, body, searchPattern) => {
+              try {
+                if (searchPattern && await hasExistingComment(issueNumber, searchPattern)) {
+                  console.log(`Comment with pattern "${searchPattern}" already exists on #${issueNumber}. Skipping to prevent duplicates.`);
+                  return;
+                }
+
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body
+                });
+                console.log(`Successfully posted comment to #${issueNumber}`);
+              } catch (err) {
+                core.warning(`Failed to post comment to #${issueNumber}: ${err.message}`);
+              }
+            };
+
+            // 1. Issue Opened
+            if (eventName === 'issues' && action === 'opened') {
+              const author = context.payload.issue?.user?.login || 'contributor';
+              const issueNumber = context.payload.issue?.number;
+              if (!issueNumber) return;
+
+              const commentBody = [
+                '## Welcome to OOTD! 👋',
+                '',
+                `Hi @${author}, thanks for opening an issue and helping take OOTD to the next level!`,
+                '',
+                'Our maintainers will review your issue and get back to you as soon as possible.',
+                '',
+                'To help us understand the problem better, please make sure to include relevant context, steps to reproduce, expected behavior, and any useful screenshots or logs.',
+                '',
+                'Before proceeding, please check our [Contributing Guidelines](https://github.com/mdazfar2/Outfit-of-the-day/blob/main/CONTRIBUTING.md).',
+                '',
+                'In the meantime, join our community:',
+                '',
+                '- ⭐ [Star OOTD](https://github.com/mdazfar2/Outfit-of-the-day) to support the project.',
+                '',
+                'Thank you for being part of the OOTD community! 🚀'
+              ].join('\n');
+
+              await postComment(issueNumber, commentBody, '## Welcome to OOTD! 👋');
+            }
+
+            // 2. Issue Assigned
+            else if (eventName === 'issues' && action === 'assigned') {
+              const assignee = context.payload.assignee?.login || context.payload.issue?.assignee?.login || 'contributor';
+              const issueNumber = context.payload.issue?.number;
+              if (!issueNumber) return;
+
+              const commentBody = `👤 Issue assigned to @${assignee}. Thank you for taking responsibility for this issue!`;
+              await postComment(issueNumber, commentBody, `Issue assigned to @${assignee}`);
+            }
+
+            // 3. Issue Closed
+            else if (eventName === 'issues' && action === 'closed') {
+              const issueNumber = context.payload.issue?.number;
+              if (!issueNumber) return;
+
+              const commentBody = `✅ This issue has been closed. Thank you for your contribution and for helping make OOTD better!`;
+              await postComment(issueNumber, commentBody, '✅ This issue has been closed.');
+            }
+
+            // 4. Pull Request Opened
+            else if (eventName === 'pull_request_target' && action === 'opened') {
+              const author = context.payload.pull_request?.user?.login || 'contributor';
+              const prNumber = context.payload.pull_request?.number;
+              if (!prNumber) return;
+
+              const commentBody = [
+                '## Welcome to OOTD! 🎉',
+                '',
+                `Hi @${author}, thank you for submitting your pull request and contributing to OOTD!`,
+                '',
+                'We truly appreciate the time and effort you\'ve invested in improving the project. A maintainer will review your changes shortly and may suggest adjustments before approval and merging.',
+                '',
+                '### 🛠️ Pull Request Verification Checklist',
+                '',
+                'To help us ensure a smooth and efficient review process, please make sure you have:',
+                '',
+                '- Followed the project\'s [Contributing Guidelines](https://github.com/mdazfar2/Outfit-of-the-day/blob/main/CONTRIBUTING.md) and coding standards.',
+                '- Tested your changes locally and verified that everything works as expected.',
+                '- Included relevant documentation or screenshots, wherever applicable.',
+                '- Provided a clear description of the changes and their purpose.',
+                '',
+                '### 🌟 Stay Connected',
+                '',
+                'While your contribution is being reviewed, feel free to connect with our community:',
+                '',
+                '- ⭐ [Star OOTD](https://github.com/mdazfar2/Outfit-of-the-day) to show your support.',
+                '',
+                'Thanks again for being part of our journey. Happy contributing! 🚀'
+              ].join('\n');
+
+              await postComment(prNumber, commentBody, '## Welcome to OOTD! 🎉');
+            }
+
+            // 5 & 6. Pull Request Closed (Merged or Unmerged)
+            else if (eventName === 'pull_request_target' && action === 'closed') {
+              const author = context.payload.pull_request?.user?.login || 'contributor';
+              const prNumber = context.payload.pull_request?.number;
+              const isMerged = Boolean(context.payload.pull_request?.merged);
+              if (!prNumber) return;
+
+              if (isMerged) {
+                const commentBody = `🎉 Congratulations, @${author}! Your pull request has been successfully merged. Thank you so much for your valuable contribution to OOTD. We truly appreciate your efforts!`;
+                await postComment(prNumber, commentBody, `🎉 Congratulations, @${author}! Your pull request has been successfully merged.`);
+              } else {
+                const commentBody = `This pull request has been closed without being merged. Thank you, @${author}, for your time, effort, and contribution to OOTD. We appreciate your interest in improving the project!`;
+                await postComment(prNumber, commentBody, 'This pull request has been closed without being merged.');
+              }
+            }
+
+            else {
+              console.log(`Event ${eventName}.${action} is not configured for automated comments. Skipping.`);
+            }
+
